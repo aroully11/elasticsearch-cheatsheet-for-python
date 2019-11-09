@@ -12,7 +12,8 @@
 		"query" : {}
 	}
 ### Compound queries can be formed to perfrom operations using queries to give out data in minimalistict way required.The default way to create a compound query is using boolean query (bool).
-### Bool requires clasues such as, must, should, must_not, or filter clauses.The must and should clauses have their scores combined — the more matching clauses, the better — while the must_not and filter clauses are executed in filter context.
+### Bool requires clasues such as, must, should, must_not, or filter clauses.
+### The must and should clauses have their scores combined — the more matching clauses, the better — while the must_not and filter clauses are executed in filter context.
 
 
 
