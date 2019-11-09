@@ -84,7 +84,7 @@
 
 #### size field : Whenever a query is done on kibanna then total number of docs returned are 20.This can be incraesed by using size field.One can specify size upto 100000.
 
-	GET /_search
+	GET index_name/_search
 	{"size": size,"query": {}}
 	
 #### Example related to DeJoule logs:
@@ -102,12 +102,14 @@
   	}
 	}}
 
-#### Example related to DeJoule logs:
+#### Example related to DeJoule data:
 	
+	GET mgch_data_2019-11-09/_search
 	{"size": 10000,
-	"query": {"bool": {"must": [{"match": {"deviceId": devices}}]}},
+	"query": {"bool": {"must": [{"match": {"deviceId": "your_deviceId"}}]}},
 	"aggs": {
         "hourly_data": {
         "date_histogram": {"field": "timestamp", "interval": "1h"},
         "aggs": {"dqi": {"cardinality": {"field": "timestamp"}}}}}}
 ###### This aggregations query is done over field Timestamp where buckets are made for every hour and counts number of unique values, where data_histogram is a multi-bucket aggregation and can only be used with date or date range values. 
+#### Above query can be used to caluclate data quantity index for data regarding any particular device.
