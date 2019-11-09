@@ -207,3 +207,63 @@
 	"size":10000}
 
 ###### Above query searches for two queries on two differnt indexes, one for logs of 5th Nov'19 and second one for 9th Nov'19, where the first query seraches for commands sent to deviceId 2200 while the second query searches for feedbacks with status 1 or status 4 for deviceId 3135.
+
+
+## Integrating Elasticsearch with Python3.x 
+
+### current version of elasticsearch supported for all the above queries is 6.3.0.
+
+#### To integrate es to python, one uses elasticsearch-py API.Connecting python script with the es server everytime to perfrom all the operations.
+
+	Installation:
+	
+	1. Install elasticserach from your console. 
+		pip install elasticsearch==6.3.1 . (current version compatible with the queries described above)
+	2. Install requests, requests_aws4auth
+		pip install requests
+		pip insatll requests-aws4auth
+###### After installation, you can continue with connecting to es server
+	
+Connecting to es server:
+
+[here](https://elasticsearch-py.readthedocs.io/en/master/#running-on-aws-with-iam)
+
+Go through the above link to access es server from your python script.
+	
+### Following are the features that are provoided by ES-python API(I've been using these for a while and I'm metioning those only):
+	
+	1.Create index : Creating a new index. 
+		es.indices.create(index="index_name", body="request_body")
+	2.Search : Search over the existing index.
+		es.search(index="index_name", doc_type="doc_type", body="request_body")
+	3.Insert : Inserting into an index.
+		es.index(index="index_name", doc_type="doc_type", body="request_body")
+	4.Bulk : Bulk insertion to an index, this makes insertion easier and faster as compared to Insert.
+		bulk(client=es, actions={})
+	
+### Index mapping : Whenever a new index is created then mapping is required for all its entires.
+
+#### Example for putting mapping to an index:
+
+	PUT/index_name/_mapping
+	{
+	  "mappings": {
+	    "properties": {
+	      "field1":    { "type": "integer" },  
+	      "field2":  { "type": "keyword"  }, 
+	      "field3":   { "type": "text"  },
+	      "field4: {"type" : "date","format":"date_format_required" }
+	      
+	    }
+	  }
+	}
+	
+### Creating Index name along with time wise from both ES-python API and Kibanna
+
+Synatx : <static_name{date_math_expr{date_format|time_zone}}>
+
+[Check out this link for more information](https://www.elastic.co/guide/en/elasticsearch/reference/current/date-math-index-names.html#date-math-index-names)
+
+##### Index can be created in all time formats day wise, month wise or year wise along with the time format as required.
+
+
