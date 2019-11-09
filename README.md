@@ -93,7 +93,7 @@
 	{"size": 10000}
 ###### Putting size as maximum value shows 100000 matching values regarding that index.
 	
-#### aggs field : A multi-bucket value source based aggregation where buckets are dynamically built - one per unique value.
+#### aggs field : A multi-bucket value source based aggregation where buckets are dynamically built, where every bucket holds an unique value.
 
 	GET index_name/_search
 	{"aggs": {
@@ -103,3 +103,11 @@
 	}}
 
 #### Example related to DeJoule logs:
+	
+	{"size": 10000,
+	"query": {"bool": {"must": [{"match": {"deviceId": devices}}]}},
+	"aggs": {
+        "hourly_data": {
+        "date_histogram": {"field": "timestamp", "interval": "1h"},
+        "aggs": {"dqi": {"cardinality": {"field": "timestamp"}}}}}}
+###### This aggregations query is done over field Timestamp where buckets are made for every hour and counts number of unique values, where data_histogram is a multi-bucket aggregation and can only be used with date or date range values. 
