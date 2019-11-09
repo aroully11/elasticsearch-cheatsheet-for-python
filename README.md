@@ -174,6 +174,18 @@
 	"filter": {"range":
 	{"ts": {"gte": "2019-11-01 00:00:00", 
 		"lte": "2019-11-05 23:00:00"}}}}}}
-###### Above query has used multi fields and queries together to give out output which is very precise to a given condition, that is, finding commands sent by source pid on days 1st to 5th of Nov'19 to deviceId 2200.The number of documents required is 100 as specified in the size field and source field contains only those fields which are requied by the user which are ts,logType,cid,did,key and source.In range field time is specified by gte(>=) and lte(<=).
+###### Above query has used multi fields and queries together to give output which is very precise to a given condition, that is, finding commands sent by source pid on days 1st to 5th of Nov'19 to deviceId 2200.The number of documents required is 100 as specified in the size field and source field contains only those fields which are requied by the user which are ts,logType,cid,did,key and source.In range field time is specified by gte(>=) and lte(<=).
+
+#### Searching over multiple index or performing more than one query over same index
+	
+	m_search : Helps to perfrom more than one query in one request and also query mutilple indices at same time.
+
+#### Synatx for m_search :
+	
+	POST /m_search
+	{"index" : "index_name1", "type" : "doc_type"}
+	{"query" : {}}
+	{"index" : "index_name2", "type" : "doc_type"}
+	{"query" : {}}
 	
 	
