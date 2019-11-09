@@ -188,4 +188,22 @@
 	{"index" : "index_name2", "type" : "doc_type"}
 	{"query" : {}}
 	
-	
+#### Example related to DeJoule logs:
+
+	POST /_msearch
+	{"index" : "mgch_logs_2019-11-05","type":"_doc"}
+	{"_source": ["logType","ts","controllerId","deviceId","key","source"],
+	"query": {"bool": {"must":
+	[{"match":{"deviceId": "2200"}},{"match": {"logType": "command"}}],
+	"filter": {"range": {"ts": {"gte": "2019-11-05 00:00:00","lte": "2019-11-05 22:00:00"}}}}},
+	"size":10000}
+	{"index" : "mgch_logs_2019-11-09","type":"_doc"}
+	{"_source":["ts","logType","controllerId","deviceId","commandKey","status","source"],
+	"query": {"bool": 
+	{"should": [{"term": {"status": "1"}},{"term": {"status": "4"}}],
+	"minimum_should_match": 1,
+	"must": [{"match": {"deviceId": "3135"}},{"match": {"logType": "feedback"}}],
+	"filter":{"range": {"ts": {"gte": "2019-11-09 00:00:00", "lte": "2019-11-09 22:00:00"}}}}},
+	"size":10000}
+
+###### Above query searches for two queries on two differnt indexes, one for logs of 5th Nov'19 and second one for 9th Nov'19, where the first query seraches for commands sent to deviceId 2200 while the second query searches for feedbacks with status 1 or status 4 for deviceId 3135.
