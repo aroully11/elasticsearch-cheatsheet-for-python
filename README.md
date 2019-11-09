@@ -161,3 +161,19 @@
 	    }
 	  }
 	]}
+	
+#### Example of combination of all above functions related to DeJoule logs:
+	
+	{"_source": ["logType","ts","controllerId","deviceId","key","source"],
+	"size": 100,
+	"query": {"bool": 
+	{"must": 
+	[{"match": {"deviceId": "2200"}},
+	{"match": {"source": "pid"}},
+	{"match": {"logType": "command"}}],
+	"filter": {"range":
+	{"ts": {"gte": "2019-11-01 00:00:00", 
+		"lte": "2019-11-05 23:00:00"}}}}}}
+###### Above query has used multi fields and queries together to give out output which is very precise to a given condition, that is, finding commands sent by source pid on days 1st to 5th of Nov'19 to deviceId 2200.The number of documents required is 100 as specified in the size field and source field contains only those fields which are requied by the user which are ts,logType,cid,did,key and source.In range field time is specified by gte(>=) and lte(<=).
+	
+	
