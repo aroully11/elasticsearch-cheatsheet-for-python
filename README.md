@@ -112,4 +112,27 @@
         "date_histogram": {"field": "timestamp", "interval": "1h"},
         "aggs": {"dqi": {"cardinality": {"field": "timestamp"}}}}}}
 ###### This aggregations query is done over field Timestamp where buckets are made for every hour and counts number of unique values, where data_histogram is a multi-bucket aggregation and can only be used with date or date range values. 
-#### Above query can be used to caluclate data quantity index for data regarding any particular device.
+###### Above query can be used to caluclate data quantity index for data regarding any particular device.
+
+#### For filtering out the basic structure of packet received from elasticsearch 
+
+	filter_path : This is an accepted parameter by REST APIs which allows to filter out the response received from elasticsearch.
+	
+#### filter path syntax
+
+	GET index_name/_search?filter_path=took,hits.hits.obj1,hits.hits.obj2
+	{"query" : {}}
+
+#### Example related to DeJoule data:
+	
+	
+	GET /mgch_logs_2019-08-01/_search?filter_path=hits.hits._source&_source=ts,logType,status
+	{
+	"query": {"range": {
+	  "ts": {
+	    "gte": "2019-08-01 00:00:00",
+	    "lte": "2019-08-01 23:00:00"
+	  }
+	}}}
+###### Filter path parameter in above query only returns the data from source wich are ts and logType.This reduces the sapce which normal returned doc will take hence making query to run even faster than earlier.
+
