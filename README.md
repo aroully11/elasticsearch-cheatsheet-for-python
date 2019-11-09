@@ -118,7 +118,7 @@
 
 	filter_path : This is an accepted parameter by REST APIs which allows to filter out the response received from elasticsearch.
 	
-#### filter path syntax
+#### filter path parameter syntax
 
 	GET index_name/_search?filter_path=took,hits.hits.obj1,hits.hits.obj2
 	{"query" : {}}
@@ -136,3 +136,28 @@
 	}}}
 ###### Filter path parameter in above query only returns the data from source wich are ts and logType.This reduces the sapce which normal returned doc will take hence making query to run even faster than earlier.
 
+#### To get the latest value inserted into the database
+
+	sort : Can arrange the database in either ascending or descending order so that it's easier for teh user to look for documents as required.
+
+#### sort field synatx
+
+	GET index_name/_search
+	{"sort": [
+	  {
+	    "FIELD": {
+	      "order": "desc"
+	    }
+	  }
+	]}
+	
+#### Example related to DeJoule logs:
+
+	GET mgch_logs_2019-11-09/_search
+	{"sort": [
+	  {
+	    "FIELD": {
+	      "order": "desc"
+	    }
+	  }
+	]}
