@@ -1,4 +1,4 @@
-# elasticsearch-cheatsheet-for-python
+# Elasticsearch-Cheatsheet-for-Python3
 
 ### Elasticsearch is a distributed, RESTful search and analytics engine capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data so you can discover the expected and uncover the unexpected.
 ### Elasticsearch lets you perform and combine many types of searches — structured, unstructured, geo, metric to get the desrired outcome.
