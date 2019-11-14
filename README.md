@@ -56,18 +56,6 @@
 	GET index_name/_search
 	{"query": {"match_all": {}}}
 	
-##### boost field can be used to boost the score for the document.
-
-	GET /_search
-	{
-	"query": {
-        "match_all": { "boost" : 1.2 }}}
-
-#### Example related to DeJoule logs:
-
-	GET mgch_logs_2019-11-09/_search
-	{"query": {"match_all": {"boost": 10}}}
-###### This query returns only first 10 docs from this index since value of boost has been set to 10 and being a match_all query not filters needs to be applied.
 	
 #### source field : Used for source filtering.To be used for restricting the amout of field that's required by the uesr from the matching document.
 
